@@ -15,7 +15,8 @@ Junior desarrollador, semisenior student and senior asking...
 
 ## Contact
 
-If you want to contact me, send an email through [nmabregu@gmail.com] (mailto: nmabregu@gmail.com). I will answer you immediately.
+If you want to contact me, send an email via [nmabregu@gmail.com](mailto:nmabregu@gmail.com). I will answer you immediately.
+
 
 ## License
 
