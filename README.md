@@ -1,4 +1,4 @@
-<p align="center"><a href="#" target="_blank"><img src="https://www.dropbox.com/s/urap0qmyub86qem/photo_2020-12-07_22-42-18.jpg?dl=0" width="400"></a></p>
+<p align="center"><a href="#" target="_blank"><img src="https://avatars0.githubusercontent.com/u/2921276?s=460&u=cc3289e50e48284ef4370c388e4f4aa29186f466&v=4" width="400"></a></p>
 
 ## About me
 
