@@ -9,6 +9,7 @@
                @include('partials.validation-errors')
                <form class="bg-white shadow rounded py-3 px-4"
                     method="POST"
+                    enctype="multipart/form-data"
                     action="{{ route('projects.store') }}"
                >
                     <h1 class="display-4">{{ __('New project') }}</h1>

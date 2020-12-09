@@ -1,4 +1,21 @@
 @csrf
+
+@if ($project->image)
+    <img class="card-img-top mb-2 rendering-edit"
+        src="/storage/{{ $project->image }}"
+        alt="{{ $project->title }}"
+    >
+@endif
+
+<div class="custom-file mb-2">
+    <input name="image" 
+        type="file" 
+        class="custom-file-input" 
+        id="customFile"
+    >
+  <label class="custom-file-label" for="customFile">{{ __('Choose file') }}</label>
+</div>
+
 <div class="form-group">
     <label for="title">{{ __('Title') .' '. __('of the project') }}</label>
     <input class="form-control border-0 bg-light shadow-sm"

@@ -10971,3 +10971,15 @@ a.text-dark:focus {
   height: 100vh;
 }
 
+.rendering {
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.rendering-edit {
+  height: 250px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+

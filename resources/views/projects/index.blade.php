@@ -7,7 +7,9 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="display-4 mb-0">{{ __('Portfolio') }}</h1>
         @auth
-            <a class="btn btn-primary" href="{{ route('projects.create') }}">
+            <a class="btn btn-primary" 
+                href="{{ route('projects.create') }}"
+            >
                 {{ __('Create new project') }}
             </a>
         @endauth
@@ -17,26 +19,49 @@
         {{ __('Hobby projects, some are more interesting than others, but they all took me some time') }}
     </p>
 
-    @include('partials.session-status')
-
-    <ul class="list-group">
+    <div class="d-flex flex-wrap justify-content-between align-items-start">
         @forelse($projects as $item)
-            <li class="list-group-item border-0 mb-3 shadow-sm">
-                <a class="text-secondary d-flex justify-content-between align-items-center" href="{{ route('projects.show', $item) }}">
-                    <span class="font-weight-bold">
-                        {{ $item->title }}
-                    </span>
-                    <span class="text-black-50">
-                        {{ $item->created_at->format('d/m/Y') }}
-                    </span>
+        
+        <div class="card border-0 shadow-sm mt-4 mx-auto" 
+            style="width: 18rem;"
+        >
+            @if ($item->image)
+                <img class="card-img-top rendering"
+                    src="/storage/{{ $item->image }}"
+                    alt="{{ $item->title }}"
+                >
+            @endif
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a class="text-secondary d-flex justify-content-between align-items-center" 
+                        href="{{ route('projects.show', $item) }}"
+                    >
+                        <span class="font-weight-bold">
+                            {{ $item->title }}
+                        </span>
+                    </a>
+                </h5>
+                <h6 class="card-subtitle">
+                    {{ $item->created_at->format('d/m/Y') }}
+                </h6>
+                <p class="card-text text-truncate">
+                    {{ $item->description }}
+                </p>
+                <a href="{{ route('projects.show', $item) }}" 
+                    class="btn btn-primary btn-sm"
+                >
+                    {{ __('See more') }}...
                 </a>
-            </li>
+            </div>
+        </div>
         @empty
-            <li class="list-group-item border-0 mb-3 shadow-sm">
-                {{ __('There are no projects to show') }}
-            </li>
+            <div class="card">
+                <div class="card-body">
+                    {{ __('There are no projects to show') }}
+                </div>
+            </div>
         @endforelse
         {{ $projects->links() }}
-    </ul>
+    </div>
 </div>
 @endsection
