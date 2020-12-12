@@ -5,7 +5,16 @@
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="display-4 mb-0">{{ __('Portfolio') }}</h1>
+        @isset($category)
+            <div>
+                <h1 class="display-4 mb-0">{{ $category->name }}</h1>
+                <a href="{{ route('projects.index') }}">
+                    {{ __('Back') }}
+                </a>
+            </div>
+        @else
+            <h1 class="display-4 mb-0">{{ __('Portfolio') }}</h1>
+        @endisset
         @auth
             <a class="btn btn-primary" 
                 href="{{ route('projects.create') }}"
@@ -47,11 +56,20 @@
                 <p class="card-text text-truncate">
                     {{ $item->description }}
                 </p>
-                <a href="{{ route('projects.show', $item) }}" 
-                    class="btn btn-primary btn-sm"
-                >
-                    {{ __('See more') }}...
-                </a>
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{{ route('projects.show', $item) }}" 
+                        class="btn btn-primary btn-sm"
+                    >
+                        {{ __('See more') }}...
+                    </a>
+                    @if ($item->category_id)
+                        <a href="{{ route('categories.show', $item->category) }}" 
+                            class="badge badge-secondary"
+                        >
+                            {{ $item->category->name }}
+                        </a>
+                    @endif
+                </div>
             </div>
         </div>
         @empty

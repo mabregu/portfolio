@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Project;
 use App\Events\ProjectSaved;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class ProjectController extends Controller
     public function index()
     {
         return view('projects.index', [
-            'projects' => Project::latest()->paginate()
+            'projects' => Project::with('category')->latest()->paginate()
         ]);
     }
 
@@ -36,7 +37,8 @@ class ProjectController extends Controller
     public function create()
     {
         return view('projects.create', [
-            'project' => new Project
+            'project' => new Project,
+            'categories' => Category::pluck('name', 'id')
         ]);
     }
 
@@ -56,7 +58,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         return view('projects.edit', [
-            'project' => $project
+            'project' => $project,
+            'categories' => Category::pluck('name', 'id')
         ]);
     }
 

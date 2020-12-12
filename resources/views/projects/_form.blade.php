@@ -13,7 +13,28 @@
         class="custom-file-input" 
         id="customFile"
     >
-  <label class="custom-file-label" for="customFile">{{ __('Choose file') }}</label>
+    <label class="custom-file-label" for="customFile">
+        {{ __('Choose file') }}
+    </label>
+</div>
+
+<div class="form-group">
+    <label for="category_id">
+        {{ __('Project category') }}
+    </label>
+    <select name="category_id" 
+        id="category_id"
+        class="form-control border-0 bg-light shadow-sm"
+    >
+        <option value="">{{ __('Select') }}</option>
+        @foreach ($categories as $key => $value)
+            <option value="{{ $key }}"
+                @if ( $key == old('category_id', $project->category_id) ) selected @endif
+            >
+                {{ $value }}
+            </option>
+        @endforeach
+    </select>
 </div>
 
 <div class="form-group">

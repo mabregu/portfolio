@@ -182,6 +182,7 @@ return [
         'title'                 => 'título',
         'username'              => 'usuario',
         'year'                  => 'año',
-        'image'                  => 'imagen',
+        'image'                 => 'imagen',
+        'category_id'           => 'categoría'
     ],
 ];

@@ -1,5 +1,7 @@
 <?php
 
+//use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// DB::listen(function($query) {
+//     echo "<pre>";
+//     var_dump($query->sql);
+//     echo "</pre>";
+// });
+
 Route::view('/', 'home')->name('home');
 
 Route::view('/' . __('about'), 'about')->name('about');
@@ -21,6 +29,8 @@ Route::view('/' . __('about'), 'about')->name('about');
 Route::resource('portafolio', 'ProjectController')
     ->parameters(['portafolio' => 'project'])
     ->names('projects');
+
+Route::get('categories/{category}', 'CategoryController@show')->name('categories.show');
 
 Route::view('/' . __('contact'), 'contact')->name('contact');
 
