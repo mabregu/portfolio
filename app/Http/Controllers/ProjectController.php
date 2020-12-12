@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Project;
+use App\Category;
 use App\Events\ProjectSaved;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +23,9 @@ class ProjectController extends Controller
     public function index()
     {
         return view('projects.index', [
-            'projects' => Project::with('category')->latest()->paginate()
+            'newProject' => new Project,
+            'projects' => Project::with('category')->latest()->paginate(),
+            'deletedProjects' => Project::onlyTrashed()->get()
         ]);
     }
 
@@ -36,8 +38,10 @@ class ProjectController extends Controller
 
     public function create()
     {
+        $this->authorize('create', $project = new Project);
+
         return view('projects.create', [
-            'project' => new Project,
+            'project' => $project,
             'categories' => Category::pluck('name', 'id')
         ]);
     }
@@ -45,6 +49,8 @@ class ProjectController extends Controller
     public function store(SaveProjectRequest $request)
     {
         $project = new Project( $request->validated() );
+
+        $this->authorize('create', $project);
 
         $project->image = $request->file('image')->store('images');
 
@@ -57,6 +63,8 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
+        $this->authorize('update', $project);
+
         return view('projects.edit', [
             'project' => $project,
             'categories' => Category::pluck('name', 'id')
@@ -65,6 +73,8 @@ class ProjectController extends Controller
 
     public function update(Project $project, SaveProjectRequest $request)
     {
+        $this->authorize('update', $project);
+
         if ( $request->hasFile('image') ) {
             Storage::delete($project->image);
 
@@ -79,15 +89,42 @@ class ProjectController extends Controller
             $project->update( array_filter($request->validated()) );
         }
 
-        return redirect()->route('projects.show', $project)->with('status', __('The project was successfully updated'));
+        return redirect()->route('projects.show', $project)
+            ->with('status', __('The project was successfully updated'));
     }
-
+    
     public function destroy(Project $project)
     {
-        Storage::delete($project->image);
+        $this->authorize('delete', $project);
         
         $project->delete();
+        
+        return redirect()->route('projects.index')
+        ->with('status', __('The project was successfully removed'));
+    }
+    
+    public function restore($projectUrl)
+    {
+        $project = Project::withTrashed()->whereUrl($projectUrl)->firstOrFail();
 
-        return redirect()->route('projects.index')->with('status', __('The project was successfully removed'));
+        $this->authorize('restore', $project);
+        
+        $project->restore();
+        
+        return redirect()->route('projects.index')
+            ->with('status', __('The project was successfully removed'));
+    }
+
+    public function forceDelete($projectUrl)
+    {
+        $project = Project::withTrashed()->whereUrl($projectUrl)->firstOrFail();
+
+        $this->authorize('force-delete', $project);
+
+        Storage::delete($project->image);
+        
+        $project->forceDelete();
+
+        return redirect()->route('projects.index')->with('status', __('The project was permanently removed successfully'));
     }
 }

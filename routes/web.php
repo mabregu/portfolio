@@ -30,10 +30,19 @@ Route::resource('portafolio', 'ProjectController')
     ->parameters(['portafolio' => 'project'])
     ->names('projects');
 
-Route::get('categories/{category}', 'CategoryController@show')->name('categories.show');
+Route::patch('portfolio/{project}/restore', 'ProjectController@restore')
+    ->name('projects.restore');
 
-Route::view('/' . __('contact'), 'contact')->name('contact');
+Route::delete('portfolio/{project}/force-delete', 'ProjectController@forceDelete')
+    ->name('projects.force-delete');
 
-Route::post('contact', 'MessageController@store')->name('messages.store');
+Route::get('categories/{category}', 'CategoryController@show')
+    ->name('categories.show');
+
+Route::view('/' . __('contact'), 'contact')
+    ->name('contact');
+
+Route::post('contact', 'MessageController@store')
+    ->name('messages.store');
 
 Auth::routes(['register' => false]);

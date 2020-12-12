@@ -33,21 +33,26 @@
                     </a>
                     @auth
                         <div class="btn-group btn-group-sm">
-                            <a class="btn btn-primary" href="{{ route('projects.edit', $project) }}">
-                                {{ __('edit') }}
-                            </a>
-                            <a class="btn btn-danger" href="#" onclick="document.getElementById('delete-project').submit()">
-                                {{ __('delete') }}
-                            </a>
+                            @can('update', $project)
+                                <a class="btn btn-primary" href="{{ route('projects.edit', $project) }}">
+                                    {{ __('edit') }}
+                                </a>
+                            @endcan
+                            @can('delete', $project)
+                                <a class="btn btn-danger" href="#" onclick="document.getElementById('delete-project').submit()">
+                                    {{ __('delete') }}
+                                </a>
+                            @endcan
                         </div>
-                
-                        <form class="d-none"
-                            id="delete-project" 
-                            method="POST" 
-                            action="{{ route('projects.destroy', $project) }}"
-                        >
-                            @csrf @method('DELETE')
-                        </form>
+                        @can('delete', $project)
+                            <form class="d-none"
+                                id="delete-project" 
+                                method="POST" 
+                                action="{{ route('projects.destroy', $project) }}"
+                            >
+                                @csrf @method('DELETE')
+                            </form>
+                        @endcan
                     @endauth
                 </div>
             </div>

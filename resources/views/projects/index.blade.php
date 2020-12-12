@@ -15,13 +15,13 @@
         @else
             <h1 class="display-4 mb-0">{{ __('Portfolio') }}</h1>
         @endisset
-        @auth
+        @can('create', $newProject)
             <a class="btn btn-primary" 
                 href="{{ route('projects.create') }}"
             >
                 {{ __('Create new project') }}
             </a>
-        @endauth
+        @endcan
     </div>
 
     <p class="lead text-secondary">
@@ -81,5 +81,36 @@
         @endforelse
         {{ $projects->links() }}
     </div>
+    @can('view-deleted-projects')
+        <div class="p-4">
+            <h4>{{ __('Project bin') }}</h4>
+            <ul class="list-group">
+                @foreach ($deletedProjects as $item)
+                    <li class="list-group-item">
+                        {{ $item->title }}
+                        @can('restore', $item)
+                            <form method="POST" 
+                                action="{{ route('projects.restore', $item) }}"
+                                class="d-inline"
+                            >
+                                @csrf @method('PATCH')
+                                <button class="btn btn-sm btn-info">Restaurar</button>
+                            </form>
+                        @endcan
+                        @can('force-delete', $item)
+                            <form method="POST" 
+                                onsubmit="return confirm('{{ __('This action cannot be undone, are you sure you want to delete this project?') }}')"
+                                action="{{ route('projects.force-delete', $item) }}"
+                                class="d-inline"
+                            >
+                                @csrf @method('DELETE')
+                                <button class="btn btn-sm btn-danger">Eliminar permanentemente</button>
+                            </form>
+                        @endcan
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endcan
 </div>
 @endsection
