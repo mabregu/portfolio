@@ -17,7 +17,7 @@
                     <a class="nav-link {{ setActive('home') }}" href='{{ route('home') }}'>@lang('Home')</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ setActive('about') }}" href='{{ route('about') }}'>@lang('About')</a>
+                    <a class="nav-link {{ setActive('about') }}" href='{{ route('about') }}'>@lang('About me')</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ setActive('projects.*') }}" href='{{ route('projects.index') }}'>@lang('Projects')</a>

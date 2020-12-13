@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/mabregu.jpg">
     <script src="{{ mix('js/app.js') }}" defer></script>
     <title>@yield('title', 'Developer')</title>
 </head>

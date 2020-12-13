@@ -8,7 +8,7 @@
         <div class="col-12 col-lg-6">
             <h1 class="display-4 text-primary">{{ __('Web developer') }}</h1>
             <p class="lead text-secondary">
-                Full Stack Developer. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ipsam sequi consequatur, facere nisi nam porro blanditiis. Itaque quos in, ullam nobis tempora aut esse harum dicta consequuntur obcaecati natus!
+                ¡Hola! Si tienes un negocio que quieres plasmar en internet y así llegar a más personas, con mucho gusto te vamos a ayudar. Contame tu idea y veremos que solución se ajusta mejor a tus necesidades.
             </p>
             <a class="btn btn-lg btn-block btn-primary" href="{{ route('contact') }}">
                 {{ __('Contact me') }}
