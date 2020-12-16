@@ -45,4 +45,5 @@ Route::view('/' . __('contact'), 'contact')
 Route::post('contact', 'MessageController@store')
     ->name('messages.store');
 
-Auth::routes(['register' => false]);
+// Auth::routes(['register' => false]);
+Auth::routes();
